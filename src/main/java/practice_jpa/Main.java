@@ -32,12 +32,7 @@ public class Main {
 //            member.setTeamId(team.getId());
 
             // 단방향 매핑 & 양방향 매핑
-            // master
             member.setTeam(team);
-            // mappedBy
-//            team.getMembers().add(member); // error
-
-            member.setMemberType(MemberType.USER);
 
             em.persist(member);
 
@@ -55,9 +50,9 @@ public class Main {
 //            findTeam.getName();
 
             // 양방향 매핑
-//            Member findMember = em.find(Member.class, member.getId());
-//            Team findTeam = findMember.getTeam();
-//            findTeam.getMembers();
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            findTeam.getMembers();
 
            tx.commit();
         } catch (Exception e) {
