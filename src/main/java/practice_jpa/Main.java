@@ -1,6 +1,7 @@
 package practice_jpa;
 
 import practice_jpa.entity.Member;
+import practice_jpa.entity.MemberType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,8 +20,9 @@ public class Main {
 
         try {
             Member member = new Member();
-            member.setId(100L);
+//            member.setId(1L);
             member.setName("hellojpa");
+            member.setMemberType(MemberType.USER);
 
             em.persist(member);
 
