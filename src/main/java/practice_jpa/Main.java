@@ -2,6 +2,7 @@ package practice_jpa;
 
 import practice_jpa.entity.Member;
 import practice_jpa.entity.MemberType;
+import practice_jpa.entity.Team;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,21 +20,45 @@ public class Main {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("team");
+
+            em.persist(team);
+
             Member member = new Member();
-//            member.setId(1L);
-            member.setName("hellojpa");
+            member.setName("member");
+            // RDB 방식
+//            member.setTeamId(team.getId());
+            // 단방향 매핑
+            member.setTeam(team);
             member.setMemberType(MemberType.USER);
 
             em.persist(member);
 
-            tx.commit();
+            em.flush();
+            em.clear();
+
+            // RDB 방식
+//            Member findMember = em.find(Member.class, member.getId());
+//            Long teamId = findMember.getTeamId();
+//            Team findTeam = em.find(Team.class, teamId);
+
+            // 단방향 매핑
+//            Member findMember = em.find(Member.class, member.getId());
+//            Team findTeam = findMember.getTeam();
+//            findTeam.getName();
+
+            // 양방향 매핑
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            findTeam.getMembers();
+
+           tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
             em.close();
         }
-
-        System.out.println("Done!");
 
         emf.close();
     }

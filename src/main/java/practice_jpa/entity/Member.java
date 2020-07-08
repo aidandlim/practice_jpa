@@ -24,6 +24,15 @@ public class Member {
     @Lob
     private String bio;
 
+    // RDB 방식
+//    @Column(name = "team_id")
+//    private Long teamId;
+
+    // 단방향 매핑 & 양방향 매핑
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
     public Long getId() {
         return id;
     }
@@ -70,5 +79,13 @@ public class Member {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
