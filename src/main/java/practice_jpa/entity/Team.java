@@ -13,6 +13,7 @@ public class Team {
 
     private String name;
 
+    // 양방향 매핑
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<Member>();
 
